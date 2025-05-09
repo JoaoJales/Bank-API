@@ -27,9 +27,6 @@ public class RegisterService {
             throw new IllegalArgumentException("CPF ou Email ja cadastrado");
         }
 
-//        if (dataRegister.account().idCustomer() != null){
-//            throw new IllegalArgumentException("Não é necessário indicar o id do cliente");
-//        }
 
         var customer = new Customer(dataRegister.customer(), dataRegister.user().cpf());
         var user = new User(dataRegister.user());

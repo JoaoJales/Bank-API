@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class AccountService {
     @Autowired
@@ -20,10 +22,8 @@ public class AccountService {
             throw new IllegalArgumentException("Número da conta já existe!");
         }
 
-//        var idCustumer = getIdCustomer(data, id);
-
         var customer = customerRepository.getReferenceById(id);
-        var account = new Account(null, customer, data.numero(), 0.00, true);
+        var account = new Account(customer, data.numero());
         customer.addAccount(account);
 
         accountRepository.save(account);
@@ -32,16 +32,5 @@ public class AccountService {
 
     }
 
-//    private Long getIdCustomer(DataCreateAccount data, Long id){
-//
-//        if (id == null && data.idCustomer() == null){
-//            throw new IllegalArgumentException("É necessário informar o do Cliente para criar uma nova conta");
-//        }
-//
-//        if (id != null){
-//            return id;
-//        }
-//        return data.idCustomer();
-//    }
 
 }
