@@ -10,18 +10,18 @@
 --- 
 ## 📦 Endpoints principais
 
-| Método | Endpoint                   | Descrição                                                 |
-|--------|----------------------------|-----------------------------------------------------------|
-| POST   | `/register`                | Cadastra um novo cliente com conta                        |
-| POST   | `/login`                   | Realiza login e retorna token (JWT)                       |
-| PUT    | `/customers`               | Atualiza dados cadastrais do cliente                      |
-| POST   | `/customers/{id}/account`  | Cria uma nova conta bancaria                              |
-| POST   | `/transactions/deposit`    | Realizar um depósito                                      |
-| POST   | `/transactions/transfer`   | Realizar uma transferência                                |
-| POST   | `/transactions/withdrawal` | Realizar um saque                                         |
-| GET    | `/statement?account=ID`    | Consulta o extrato da conta                               |
-| GET    | `/customers`               | Busca uma lista de todos os clientes cadastratos e ativos |
-| GET    | `/customers/{id}`          | Busca detalhes de um cliente                              | 
+| Método | Endpoint                                   | Descrição                                        |
+|--------|--------------------------------------------|--------------------------------------------------|
+| POST   | `/register`                                | Cadastra um novo cliente com conta               |
+| POST   | `/login`                                   | Realiza login e retorna token (JWT)              |
+| PUT    | `/customers`                               | Atualiza dados cadastrais do cliente             |
+| POST   | `/customers/{id}/account`                  | Cria uma nova conta bancaria                     |
+| POST   | `/transactions/deposit`                    | Realizar um depósito                             |
+| POST   | `/transactions/transfer`                   | Realizar uma transferência                       |
+| POST   | `/transactions/withdrawal`                 | Realizar um saque                                |
+| GET    | `/statement/{numeroConta}`                 | **Consulta o extrato da conta**                  |
+| GET    | `/customers`                               | Busca uma lista de todos os clientes cadastratos |
+| GET    | `/customers/{id}`                          | Busca detalhes de um cliente                     | 
 ---
 
 ## 📄 Exemplos de JSON
