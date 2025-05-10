@@ -29,7 +29,7 @@ public class Transaction {
     @JoinColumn(name = "destiny_account_id")
     private Account destinyAccount;
 
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "tipo")
     private TypeTransaction typeTransaction;
 

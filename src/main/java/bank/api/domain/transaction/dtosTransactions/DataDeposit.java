@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 public record DataDeposit(
         @NotBlank
-        @Pattern(regexp = "\\d{7}\\-?\\d{1}")
+        @Pattern(regexp = "\\d{7}\\-\\d{1}", message = "O número da conta deve corresponder ao padrão 0000000-0")
         String destinyAccount,
 
         @NotNull

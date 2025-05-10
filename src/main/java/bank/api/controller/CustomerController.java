@@ -62,4 +62,12 @@ public class CustomerController {
 
         return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
     }
+
+    @DeleteMapping("/{id}/accounts/{numeroConta}")
+    @Transactional
+    public ResponseEntity cancelAccounts(@PathVariable Long id, @PathVariable String numeroConta){
+        accountService.cancelAccount(id, numeroConta);
+
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -45,15 +45,24 @@ public class Account {
         this.saldo = BigDecimal.valueOf(0.00);
     }
 
-    public void putAccountReceivedTransaction(Transaction transaction){
+    public void addReceivedTransaction(Transaction transaction){
         this.saldo = this.saldo.add(transaction.getValue());
         receivedTransactions.add(transaction);
     }
 
-    public void putAccountsentTransaction(Transaction transaction){
+    public void addsentTransaction(Transaction transaction){
         if (this.saldo.subtract(transaction.getValue()).compareTo(BigDecimal.ZERO) < 0){
             throw new IllegalArgumentException("Saldo insuficiente");
         }
+        this.saldo = this.saldo.subtract(transaction.getValue());
         this.sentTransactions.add(transaction);
     }
+
+    public void cancelAccount(){
+        if (this.saldo.compareTo(BigDecimal.ZERO) > 0){
+            throw new IllegalArgumentException("É necessário que a conta esteja com saldo zerado para realizar o cancelamento");
+        }
+        this.ativo = false;
+    }
+
 }

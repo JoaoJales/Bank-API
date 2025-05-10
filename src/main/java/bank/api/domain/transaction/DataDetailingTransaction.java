@@ -8,6 +8,7 @@ public record DataDetailingTransaction(Long id, String originAccount, String des
         this(transaction.getId(),
                 transaction.getOriginAccount() != null ? transaction.getOriginAccount().getNumero() : null,
                 transaction.getDestinyAccount() != null ? transaction.getDestinyAccount().getNumero() : null,
-                transaction.getValue() , transaction.getDate(), transaction.getTypeTransaction(),transaction.getDescription());
+                transaction.getValue() , transaction.getDate(), transaction.getTypeTransaction(),
+                transaction.getDescription() != null ? transaction.getDescription() : null);
     }
 }

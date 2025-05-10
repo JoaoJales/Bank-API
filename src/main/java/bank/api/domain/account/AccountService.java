@@ -1,6 +1,7 @@
 package bank.api.domain.account;
 
 import bank.api.domain.customer.CustomerRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,15 @@ public class AccountService {
     }
 
 
+    @Transactional
+    public void cancelAccount(Long id, String numeroConta) {
+        if (!accountRepository.existsByNumeroAndCustomerId(numeroConta, id)){
+            throw new IllegalArgumentException("Conta não pertence ao usuário indicado!");
+        }
+
+        var account = accountRepository.getReferenceByNumero(numeroConta);
+        account.cancelAccount();
+
+        accountRepository.save(account);
+    }
 }
