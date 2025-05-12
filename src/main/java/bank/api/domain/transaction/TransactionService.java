@@ -6,6 +6,8 @@ import bank.api.domain.transaction.dtosTransactions.DataDeposit;
 import bank.api.domain.transaction.dtosTransactions.DataPayment;
 import bank.api.domain.transaction.dtosTransactions.DataTransfer;
 import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
+import bank.api.domain.transaction.validations.deposit.ValidatorDepositService;
+import bank.api.domain.transaction.validations.transfer.ValidatorTransferService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TransactionService {
@@ -26,11 +29,17 @@ public class TransactionService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    //REALIZAR VALIDAÇÕES NOS METODOS
+    @Autowired
+    private List<ValidatorTransferService> validatorsTransfer;
+
+    @Autowired
+    private List<ValidatorDepositService> validatorsDeposit;
 
     @Transactional
     public Transaction deposit(DataDeposit data){
         verificaConta(data.destinyAccount(), null);
+
+        validatorsDeposit.forEach(d -> d.validate(data));
 
         var contaDestino = accountRepository.getReferenceByNumero(data.destinyAccount());
         var transaction = new Transaction(null, null, contaDestino, TypeTransaction.DEPOSITO, data.value(), LocalDateTime.now(), data.description());
@@ -45,6 +54,8 @@ public class TransactionService {
     @Transactional
     public Transaction transfer(DataTransfer data){
         verificaConta(data.destinyAccount(), data.originAccount());
+
+        validatorsTransfer.forEach(t -> t.validate(data));
 
         var contaDestino = accountRepository.getReferenceByNumero(data.destinyAccount());
         var contaOrigem = accountRepository.getReferenceByNumero(data.originAccount());

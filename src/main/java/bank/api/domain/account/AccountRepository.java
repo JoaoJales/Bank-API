@@ -12,4 +12,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Account getReferenceByNumero(String numero);
 
     boolean existsByNumeroAndCustomerId(String numeroConta, Long id);
+
+    boolean existsByNumeroAndAtivoTrue(String numero);
 }
