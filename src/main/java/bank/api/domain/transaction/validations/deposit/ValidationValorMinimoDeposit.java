@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ValidationValorMinimo implements ValidatorDepositService {
+public class ValidationValorMinimoDeposit implements ValidatorDepositService {
     @Override
     public void validate(DataDeposit data) {
         if (data.value().compareTo(BigDecimal.ONE) < 0){
