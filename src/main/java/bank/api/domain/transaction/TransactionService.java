@@ -85,8 +85,7 @@ public class TransactionService {
         validatorsWithdrawal.forEach(w -> w.validate(data));
 
         var contaOrigem = accountRepository.getReferenceByNumero(data.originAccount());
-//        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.now(), data.description());
-        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.of(2025, 5,13,12,0,0), data.description());
+        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.now(), data.description());
 
         contaOrigem.addsentTransaction(transaction);
 

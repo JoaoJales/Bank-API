@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 public class ValidationHorarioFuncionamentoWithdrawal implements ValidatorWithdrawalService {
     @Override
     public void validate(DataWithdrawal data) {
-//        var dateNow = LocalDateTime.now();
-        var dateNow = LocalDateTime.of(2025, 5,13,12,0,0);
-
+        var dateNow = LocalDateTime.now();
         var dateStart = dateNow.getHour() < 6;
         var dateFinal = dateNow.getHour() > 22;
 

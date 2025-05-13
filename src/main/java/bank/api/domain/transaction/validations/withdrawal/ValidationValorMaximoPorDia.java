@@ -23,9 +23,7 @@ public class ValidationValorMaximoPorDia implements ValidatorWithdrawalService{
 
     @Override
     public void validate(DataWithdrawal data) {
-//        var dateNow = LocalDateTime.now();
-        var dateNow = LocalDateTime.of(2025, 5,13,12,0,0);
-
+        var dateNow = LocalDateTime.now();
         var dateStart = dateNow.withHour(6);
         var dateFinal = dateNow.withHour(22);
         var limit = new BigDecimal(5000);
