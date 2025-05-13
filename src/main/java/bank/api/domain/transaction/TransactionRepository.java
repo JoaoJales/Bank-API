@@ -22,4 +22,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     Page<Transaction> findAllByAccount(@Param("account") Account account, Pageable pageable);
 
     List<Transaction> findAllByDestinyAccountAndTypeTransactionAndDateBetween(Account account, TypeTransaction typeTransaction, LocalDateTime dateStart, LocalDateTime dateFinal);
+
+    List<Transaction> findAllByOriginAccountAndTypeTransactionAndDateBetween(Account account, TypeTransaction typeTransaction, LocalDateTime dateStart, LocalDateTime dateFinal);
 }
