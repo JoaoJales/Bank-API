@@ -7,7 +7,9 @@ import bank.api.domain.transaction.dtosTransactions.DataPayment;
 import bank.api.domain.transaction.dtosTransactions.DataTransfer;
 import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
 import bank.api.domain.transaction.validations.deposit.ValidatorDepositService;
+import bank.api.domain.transaction.validations.payment.ValidatorPaymentService;
 import bank.api.domain.transaction.validations.transfer.ValidatorTransferService;
+import bank.api.domain.transaction.validations.withdrawal.ValidatorWithdrawalService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,12 @@ public class TransactionService {
 
     @Autowired
     private List<ValidatorDepositService> validatorsDeposit;
+
+    @Autowired
+    private List<ValidatorWithdrawalService> validatorsWithdrawal;
+
+    @Autowired
+    private List<ValidatorPaymentService> validatorsPayment;
 
     @Transactional
     public Transaction deposit(DataDeposit data){
@@ -74,8 +82,12 @@ public class TransactionService {
     public Transaction withdrawal(@Valid DataWithdrawal data) {
         verificaConta(null, data.originAccount());
 
+        validatorsWithdrawal.forEach(w -> w.validate(data));
+
         var contaOrigem = accountRepository.getReferenceByNumero(data.originAccount());
-        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.now(), data.description());
+//        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.now(), data.description());
+        var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.SAQUE, data.value(), LocalDateTime.of(2025, 5,13,12,0,0), data.description());
+
         contaOrigem.addsentTransaction(transaction);
 
 
@@ -88,6 +100,8 @@ public class TransactionService {
     @Transactional
     public Transaction payment(DataPayment data){
         verificaConta(null, data.originAccount());
+
+        validatorsPayment.forEach(p -> p.validate(data));
 
         var contaOrigem = accountRepository.getReferenceByNumero(data.originAccount());
         var transaction = new Transaction(null, contaOrigem, null, TypeTransaction.PAGAMENTO, data.value(), LocalDateTime.now(), data.description());
