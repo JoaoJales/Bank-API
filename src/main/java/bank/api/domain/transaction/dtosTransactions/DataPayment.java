@@ -8,10 +8,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record DataPayment(
-        @NotBlank
-        @Pattern(regexp = "\\d{7}\\-\\d{1}", message = "O número da conta deve corresponder ao padrão 0000000-0")
-        String originAccount,
-
         @NotNull
         @Positive
         BigDecimal value,

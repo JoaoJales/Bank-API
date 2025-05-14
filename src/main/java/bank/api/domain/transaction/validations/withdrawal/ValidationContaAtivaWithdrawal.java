@@ -14,8 +14,10 @@ public class ValidationContaAtivaWithdrawal implements ValidatorWithdrawalServic
 
     @Override
     public void validate(DataWithdrawal data) {
-        if (!repository.existsByNumeroAndAtivoTrue(data.originAccount())){
-            throw new IllegalArgumentException("Conta de origem inativa!");
+        if (data.originAccount() != null) {
+            if (!repository.existsByNumeroAndAtivoTrue(data.originAccount())) {
+                throw new IllegalArgumentException("Conta de origem inativa!");
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Component
 public class ValidationHorarioFuncionamentoPayment implements ValidatorPaymentService {
     @Override
-    public void validate(DataPayment data) {
+    public void validate(DataPayment data, String cpf) {
         var dateNow = LocalDateTime.now();
         var dateStart = dateNow.getHour() > 20;
         var dateFinal = dateNow.getHour() < 6;

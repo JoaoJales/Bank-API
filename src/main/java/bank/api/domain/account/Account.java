@@ -36,13 +36,18 @@ public class Account {
 
     private String numero;
     private BigDecimal saldo;
+
+    @Enumerated(EnumType.STRING)
+    private TypeAccount tipo;
+
     private boolean ativo;
 
-    public Account(Customer customer, String numero) {
+    public Account(Customer customer, DataCreateAccount data) {
         this.ativo = true;
         this.customer = customer;
-        this.numero = numero;
+        this.numero = data.numero();
         this.saldo = BigDecimal.valueOf(0.00);
+        this.tipo = data.tipo();
     }
 
     public void addReceivedTransaction(Transaction transaction){

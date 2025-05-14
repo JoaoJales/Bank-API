@@ -3,10 +3,7 @@ package bank.api.controller;
 import bank.api.domain.transaction.DataDetailingTransaction;
 import bank.api.domain.transaction.DataStatement;
 import bank.api.domain.transaction.TransactionService;
-import bank.api.domain.transaction.dtosTransactions.DataDeposit;
-import bank.api.domain.transaction.dtosTransactions.DataPayment;
-import bank.api.domain.transaction.dtosTransactions.DataTransfer;
-import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
+import bank.api.domain.transaction.dtosTransactions.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,32 +30,42 @@ public class TransactionController {
         return ResponseEntity.created(uri).body(new DataDetailingTransaction(transaction));
     }
 
-    @PostMapping("/transfer")
+    @PostMapping("/transfer/{cpf}")
     @Transactional
-    public ResponseEntity transfer(@RequestBody @Valid DataTransfer data, UriComponentsBuilder uriBuilder){
-        var transaction = transactionService.transfer(data);
+    public ResponseEntity transfer(@RequestBody @Valid DataTransfer data, UriComponentsBuilder uriBuilder, @PathVariable String cpf){
+        var transaction = transactionService.transfer(data, cpf);
 
-        var uri = uriBuilder.path("/transactions/transfer/{id}").buildAndExpand(transaction.getId()).toUri();
+        var uri = uriBuilder.path("/transactions/transfer/{cpf}/{id}").buildAndExpand(cpf ,transaction.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DataDetailingTransaction(transaction));
     }
 
-    @PostMapping("/withdrawal")
+    @PostMapping("/withdrawal/{cpf}")
     @Transactional
-    public ResponseEntity withdrawal(@RequestBody @Valid DataWithdrawal data, UriComponentsBuilder uriBuilder){
-        var transaction = transactionService.withdrawal(data);
+    public ResponseEntity withdrawal(@RequestBody @Valid DataWithdrawal data, UriComponentsBuilder uriBuilder, @PathVariable String cpf){
+        var transaction = transactionService.withdrawal(data, cpf);
 
-        var uri = uriBuilder.path("/transactions/withdrawal/{id}").buildAndExpand(transaction.getId()).toUri();
+        var uri = uriBuilder.path("/transactions/withdrawal/{cpf}/{id}").buildAndExpand(cpf, transaction.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DataDetailingTransaction(transaction));
     }
 
-    @PostMapping("/payment")
+    @PostMapping("/payment/{cpf}")
     @Transactional
-    public ResponseEntity withdrawal(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder){
-        var transaction = transactionService.payment(data);
+    public ResponseEntity withdrawal(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder, @PathVariable String cpf){
+        var transaction = transactionService.payment(data, cpf);
 
-        var uri = uriBuilder.path("/transactions/payment/{id}").buildAndExpand(transaction.getId()).toUri();
+        var uri = uriBuilder.path("/transactions/payment/{cpf}/{id}").buildAndExpand(cpf, transaction.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DataDetailingTransaction(transaction));
+    }
+
+    @PostMapping("/pix/{cpfOrigin}")
+    @Transactional
+    public ResponseEntity pix(@RequestBody @Valid DataPix data, UriComponentsBuilder uriBuilder, @PathVariable String cpfOrigin){
+        var transaction = transactionService.pix(data,cpfOrigin);
+
+        var uri = uriBuilder.path("/transactions/pix/{cpfOrigin}/{id}").buildAndExpand(cpfOrigin, transaction.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DataDetailingTransaction(transaction));
     }

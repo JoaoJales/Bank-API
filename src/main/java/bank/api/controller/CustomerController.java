@@ -38,8 +38,8 @@ public class CustomerController {
 
     @PostMapping("/{id}/accounts")
     @Transactional
-    public ResponseEntity putAccounts(@RequestBody @Valid DataCreateAccount data, @PathVariable Long id, UriComponentsBuilder uriBuilder){
-        var account = accountService.createAccount(data, id);
+    public ResponseEntity postAccounts(@RequestBody @Valid DataCreateAccount data, @PathVariable Long id, UriComponentsBuilder uriBuilder){
+        var account = accountService.createNewAccount(data, id);
         var customer = repository.getReferenceById(id);
 
         var uri = uriBuilder.path("/customers/{customerId}/accounts/{accountId}").buildAndExpand(id, account.getId()).toUri();

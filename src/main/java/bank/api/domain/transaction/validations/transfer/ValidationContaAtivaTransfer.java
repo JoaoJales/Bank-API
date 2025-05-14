@@ -12,8 +12,10 @@ public class ValidationContaAtivaTransfer implements ValidatorTransferService {
 
     @Override
     public void validate(DataTransfer data) {
-        if (!repository.existsByNumeroAndAtivoTrue(data.originAccount())){
-            throw new IllegalArgumentException("Conta de origem inativa!");
+        if (data.originAccount() != null) {
+            if (!repository.existsByNumeroAndAtivoTrue(data.originAccount())) {
+                throw new IllegalArgumentException("Conta de origem inativa!");
+            }
         }
 
         if (!repository.existsByNumeroAndAtivoTrue(data.destinyAccount())){

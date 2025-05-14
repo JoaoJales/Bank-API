@@ -18,13 +18,22 @@ public class AccountService {
     private AccountRepository accountRepository;
 
 
-    public Account createAccount(DataCreateAccount data, Long id){
+    public Account createNewAccount(DataCreateAccount data, Long id){
+        if (data.tipo() == null){
+            throw new IllegalArgumentException("É necessário passar um tipo de conta!");
+        }
+
+        if (accountRepository.existsByCustomerIdAndTipo(id, data.tipo())){
+            throw new IllegalArgumentException("O Cliente já possui este tipo de conta");
+        }
+
         if (accountRepository.existsByNumero(data.numero())){
             throw new IllegalArgumentException("Número da conta já existe!");
         }
 
+
         var customer = customerRepository.getReferenceById(id);
-        var account = new Account(customer, data.numero());
+        var account = new Account(customer, data);
         customer.addAccount(account);
 
         accountRepository.save(account);

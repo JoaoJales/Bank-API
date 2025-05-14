@@ -19,7 +19,7 @@ public class ValidationHorarioFuncionamentoDeposit implements ValidatorDepositSe
         var saturday = dateNow.getDayOfWeek().equals(DayOfWeek.SATURDAY);
 
         if (dateStart || dateFinal || sunday || saturday){
-            throw new IllegalArgumentException("Não é possível realizar uma transferência fora do hórario útil");
+            throw new IllegalArgumentException("Não é possível realizar um depósito fora do hórario útil");
         }
     }
 }

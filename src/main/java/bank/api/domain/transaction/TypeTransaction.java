@@ -4,7 +4,8 @@ public enum TypeTransaction {
     TRANSFERENCIA("Transferência"),
     DEPOSITO("Deposito"),
     SAQUE("Saque"),
-    PAGAMENTO("Pagamento");
+    PAGAMENTO("Pagamento"),
+    PIX("Pix");
 
     private String type;
 
