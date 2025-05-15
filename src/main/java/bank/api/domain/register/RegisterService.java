@@ -11,6 +11,7 @@ import bank.api.domain.user.User;
 import bank.api.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,6 +27,9 @@ public class RegisterService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public DataDetailingCustomer register (DataRegister dataRegister){
         if (customerRepository.existsByCpfOrEmail(dataRegister.user().cpf(), dataRegister.customer().email())){
@@ -34,7 +38,9 @@ public class RegisterService {
 
 
         var customer = new Customer(dataRegister.customer(), dataRegister.user().cpf());
-        var user = new User(dataRegister.user());
+
+        var user = new User(null ,dataRegister.user().cpf(), passwordEncoder.encode(dataRegister.user().senha()));
+
         customer = customerRepository.save(customer);
         var account = new Account(null, customer, null, null, dataRegister.account().numero(), BigDecimal.valueOf(0.0), TypeAccount.CORRENTE, true);
         accountRepository.save(account);
