@@ -3,7 +3,6 @@ package bank.api.domain.transaction;
 import bank.api.domain.account.Account;
 import bank.api.domain.account.AccountRepository;
 import bank.api.domain.account.TypeAccount;
-import bank.api.domain.customer.Customer;
 import bank.api.domain.customer.CustomerRepository;
 import bank.api.domain.transaction.dtosTransactions.*;
 import bank.api.domain.transaction.validations.deposit.ValidatorDepositService;
@@ -11,6 +10,7 @@ import bank.api.domain.transaction.validations.payment.ValidatorPaymentService;
 import bank.api.domain.transaction.validations.pix.ValidatorPixService;
 import bank.api.domain.transaction.validations.transfer.ValidatorTransferService;
 import bank.api.domain.transaction.validations.withdrawal.ValidatorWithdrawalService;
+import bank.api.infra.security.SecurityService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class TransactionService {
     private CustomerRepository customerRepository;
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private List<ValidatorTransferService> validatorsTransfer;
 
     @Autowired
@@ -49,7 +52,7 @@ public class TransactionService {
 
     @Transactional
     public Transaction deposit(DataDeposit data){
-        validateAccounts(data.destinyAccount(), null);
+        validateExistsAccount(data.destinyAccount());
 
         validatorsDeposit.forEach(d -> d.validate(data));
 
@@ -64,13 +67,17 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction transfer(DataTransfer data, String cpf){
+    public Transaction transfer(DataTransfer data){
+        var cpfLogged = securityService.getCpfUserLogged();
+
         Account originAccount;
         if (data.originAccount() == null){
-            validateAccounts(data.destinyAccount(), null);
-            originAccount = findCurrentAccount(cpf);
+            validateExistsAccount(data.destinyAccount());
+            originAccount = findCurrentAccount(cpfLogged);
         }else {
-            validateAccounts(data.destinyAccount(), data.originAccount());
+            validateExistsAccount(data.destinyAccount());
+            validateExistsAccount(data.originAccount());
+            validateOriginAccountAndCpfLogged(cpfLogged, data.originAccount());
             originAccount = accountRepository.getReferenceByNumero(data.originAccount());
         }
 
@@ -90,13 +97,15 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction withdrawal(@Valid DataWithdrawal data, String cpf) {
+    public Transaction withdrawal(@Valid DataWithdrawal data) {
+        var cpfLogged = securityService.getCpfUserLogged();
 
         Account originAccount;
         if (data.originAccount() == null){
-            originAccount = findCurrentAccount(cpf);
+            originAccount = findCurrentAccount(cpfLogged);
         }else {
-            validateAccounts(null, data.originAccount());
+            validateExistsAccount(data.originAccount());
+            validateOriginAccountAndCpfLogged(cpfLogged, data.originAccount());
             originAccount = accountRepository.getReferenceByNumero(data.originAccount());
         }
 
@@ -112,11 +121,11 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction payment(DataPayment data, String cpf){
+    public Transaction payment(DataPayment data){
+        var cpfLogged = securityService.getCpfUserLogged();
+        validatorsPayment.forEach(p -> p.validate(data));
 
-        validatorsPayment.forEach(p -> p.validate(data, cpf));
-
-        var originAccount = findCurrentAccount(cpf);
+        var originAccount = findCurrentAccount(cpfLogged);
         var transaction = new Transaction(null, originAccount, null, TypeTransaction.PAGAMENTO, data.value(), LocalDateTime.now(), data.description());
         originAccount.addsentTransaction(transaction);
 
@@ -127,12 +136,12 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction pix(DataPix data, String keyOrigin){
-
-        validatorsPix.forEach(p -> p.validate(data, keyOrigin));
+    public Transaction pix(DataPix data){
+        var cpfLogged = securityService.getCpfUserLogged();
+        validatorsPix.forEach(p -> p.validate(data, cpfLogged));
 
         var destinyAccount = findCurrentAccount(data.key());
-        var originAccount = findCurrentAccount(keyOrigin);
+        var originAccount = findCurrentAccount(cpfLogged);
         var transaction = new Transaction(null, originAccount, destinyAccount, TypeTransaction.PIX, data.value(), LocalDateTime.now(), data.description());
         originAccount.addsentTransaction(transaction);
         destinyAccount.addReceivedTransaction(transaction);
@@ -145,7 +154,9 @@ public class TransactionService {
     }
 
     public Page<DataStatement> getStatement(String numeroConta, Pageable pageable) {
-        validateAccounts(null, numeroConta);
+        var cpfLogged = securityService.getCpfUserLogged();
+        validateExistsAccount(numeroConta);
+        validateOriginAccountAndCpfLogged(cpfLogged, numeroConta);
         var account = accountRepository.getReferenceByNumero(numeroConta);
 
         return transactionRepository.findAllByAccount(account, pageable).map(t -> new DataStatement(t, account));
@@ -153,7 +164,7 @@ public class TransactionService {
 
     private Account findCurrentAccount(String key){
         if (!customerRepository.existsByCpfOrEmail(key, key)){
-            throw new IllegalArgumentException("Key inválida!");
+            throw new IllegalArgumentException("Key ("+ key + ") inválida!");
         }
         var customer = customerRepository.findByCpfOrEmail(key, key).get();
         var account = accountRepository.findByCustomerIdAndTipo(customer.getId(), TypeAccount.CORRENTE).get();
@@ -161,18 +172,24 @@ public class TransactionService {
         return account;
     }
 
-    private void validateAccounts(String destinyAccount, String originAccount){
-        if (destinyAccount != null){
-            if (!accountRepository.existsByNumero(destinyAccount)){
-                throw new IllegalArgumentException("Conta de destino não existe!");
-            }
-        }
-
-        if (originAccount != null){
-            if (!accountRepository.existsByNumero(originAccount)){
-                throw new IllegalArgumentException("Conta de origem não existe!");
+    private void validateExistsAccount(String account){
+        if (account != null){
+            if (!accountRepository.existsByNumero(account)){
+                throw new IllegalArgumentException("Conta (" + account + ") não existe!");
             }
         }
     }
+
+    private void validateOriginAccountAndCpfLogged(String cpfLogged, String originAccount){
+        if (originAccount != null){
+            var origin = accountRepository.getReferenceByNumero(originAccount);
+            var customerLogged = customerRepository.findByCpf(cpfLogged).get();
+
+            if (!origin.getCustomer().equals(customerLogged)){
+                throw new IllegalArgumentException("Você não tem permissão para movimentar a conta (" + origin.getNumero() + ")");
+            }
+        }
+    }
+
 
 }

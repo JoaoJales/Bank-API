@@ -36,13 +36,13 @@ public class CustomerController {
         return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
     }
 
-    @PostMapping("/{id}/accounts")
+    @PostMapping("/accounts")
     @Transactional
-    public ResponseEntity postAccounts(@RequestBody @Valid DataCreateAccount data, @PathVariable Long id, UriComponentsBuilder uriBuilder){
-        var account = accountService.createNewAccount(data, id);
-        var customer = repository.getReferenceById(id);
+    public ResponseEntity postAccounts(@RequestBody @Valid DataCreateAccount data, UriComponentsBuilder uriBuilder){
+        var account = accountService.createNewAccount(data);
+        var customer = repository.getReferenceById(account.getCustomer().getId());
 
-        var uri = uriBuilder.path("/customers/{customerId}/accounts/{accountId}").buildAndExpand(id, account.getId()).toUri();
+        var uri = uriBuilder.path("/customers/{customerId}/accounts/{accountId}").buildAndExpand(customer.getId(), account.getId()).toUri();
 
 
         return ResponseEntity.created(uri).body(new DataGetAccount(account));
@@ -63,10 +63,10 @@ public class CustomerController {
         return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
     }
 
-    @DeleteMapping("/{id}/accounts/{numeroConta}")
+    @DeleteMapping("/accounts/{numeroConta}")
     @Transactional
-    public ResponseEntity cancelAccounts(@PathVariable Long id, @PathVariable String numeroConta){
-        accountService.cancelAccount(id, numeroConta);
+    public ResponseEntity cancelAccounts(@PathVariable String numeroConta){
+        accountService.cancelAccount(numeroConta);
 
         return ResponseEntity.noContent().build();
     }

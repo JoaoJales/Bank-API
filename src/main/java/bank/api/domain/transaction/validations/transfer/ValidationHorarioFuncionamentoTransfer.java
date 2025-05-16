@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 @Component
-public class ValidationHorarioFuncionamento implements ValidatorTransferService{
+public class ValidationHorarioFuncionamentoTransfer implements ValidatorTransferService{
     @Override
     public void validate(DataTransfer data) {
         var dateNow = LocalDateTime.now();

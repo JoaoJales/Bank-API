@@ -6,6 +6,7 @@ import bank.api.domain.account.AccountRepository;
 import bank.api.domain.account.TypeAccount;
 import bank.api.domain.customer.CustomerRepository;
 import bank.api.domain.transaction.dtosTransactions.DataTransfer;
+import bank.api.infra.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,14 +18,19 @@ public class ValidationMesmaContaTransfer implements ValidatorTransferService{
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private SecurityService securityService;
+
     @Override
     public void validate(DataTransfer data) {
         Account contaOrigem;
         var contaDestino = accountRepository.getReferenceByNumero(data.destinyAccount());
-        var customer = customerRepository.getReferenceById(contaDestino.getCustomer().getId());
+        var customerDestino = customerRepository.getReferenceById(contaDestino.getCustomer().getId());
 
         if (data.originAccount() == null){
-            contaOrigem = accountRepository.findByCustomerIdAndTipo(customer.getId(), TypeAccount.CORRENTE).get();
+            var cpf = securityService.getCpfUserLogged();
+            var customerOrigem = customerRepository.findByCpf(cpf).get();
+            contaOrigem = accountRepository.findByCustomerIdAndTipo(customerOrigem.getId(), TypeAccount.CORRENTE).get();
         }else {
             contaOrigem = accountRepository.getReferenceByNumero(data.originAccount());
         }

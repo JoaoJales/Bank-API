@@ -36,6 +36,10 @@ public class RegisterService {
             throw new IllegalArgumentException("CPF ou Email ja cadastrado");
         }
 
+        if (accountRepository.existsByNumeroAndAtivoTrue(dataRegister.account().numero())){
+            throw new IllegalArgumentException("Número da conta já existe!");
+        }
+
 
         var customer = new Customer(dataRegister.customer(), dataRegister.user().cpf());
 

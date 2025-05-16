@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 @Component
 public class ValidationHorarioFuncionamentoPayment implements ValidatorPaymentService {
     @Override
-    public void validate(DataPayment data, String cpf) {
+    public void validate(DataPayment data) {
         var dateNow = LocalDateTime.now();
         var dateStart = dateNow.getHour() > 20;
-        var dateFinal = dateNow.getHour() < 6;
+        var dateFinal = dateNow.getHour() < 7;
 
         if (dateStart || dateFinal){
             throw new IllegalArgumentException("Pagamento fora do hárario de funcionamento!");

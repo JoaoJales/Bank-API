@@ -1,6 +1,7 @@
 package bank.api.domain.account;
 
 import bank.api.domain.customer.CustomerRepository;
+import bank.api.infra.security.SecurityService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -17,22 +18,25 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private SecurityService securityService;
 
-    public Account createNewAccount(DataCreateAccount data, Long id){
+
+    public Account createNewAccount(DataCreateAccount data){
+        var cpfLogged = securityService.getCpfUserLogged();
+        var customer = customerRepository.findByCpf(cpfLogged).get();
         if (data.tipo() == null){
             throw new IllegalArgumentException("É necessário passar um tipo de conta!");
         }
 
-        if (accountRepository.existsByCustomerIdAndTipo(id, data.tipo())){
-            throw new IllegalArgumentException("O Cliente já possui este tipo de conta");
+        if (accountRepository.existsByCustomerIdAndTipo(customer.getId(), data.tipo())){
+            throw new IllegalArgumentException(customer.getNome() + " (" + customer.getCpf() + ")" + " já possui uma conta do tipo " + data.tipo());
         }
 
         if (accountRepository.existsByNumero(data.numero())){
-            throw new IllegalArgumentException("Número da conta já existe!");
+            throw new IllegalArgumentException("Conta ("+ data.numero() +")" + " já existe!");
         }
 
-
-        var customer = customerRepository.getReferenceById(id);
         var account = new Account(customer, data);
         customer.addAccount(account);
 
@@ -44,9 +48,11 @@ public class AccountService {
 
 
     @Transactional
-    public void cancelAccount(Long id, String numeroConta) {
-        if (!accountRepository.existsByNumeroAndCustomerId(numeroConta, id)){
-            throw new IllegalArgumentException("Conta não pertence ao usuário indicado!");
+    public void cancelAccount(String numeroConta) {
+        var cpfLogged = securityService.getCpfUserLogged();
+        var customer = customerRepository.findByCpf(cpfLogged).get();
+        if (!accountRepository.existsByNumeroAndCustomerId(numeroConta, customer.getId())){
+            throw new IllegalArgumentException("Conta não pertence ao usuário " + customer.getNome() + " (" + customer.getCpf() + ")");
         }
 
         var account = accountRepository.getReferenceByNumero(numeroConta);
