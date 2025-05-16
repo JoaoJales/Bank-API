@@ -27,10 +27,12 @@ public class User implements UserDetails {
     private String cpf;
     private String password;
 
-    public User (DataRegisterUser data){
-        this.cpf = data.cpf();
-        this.password = data.senha();
+
+    public void updatePassword(String newPassword){
+        this.password = newPassword;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

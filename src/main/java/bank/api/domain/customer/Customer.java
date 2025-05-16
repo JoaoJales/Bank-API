@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +35,12 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Account> accounts = new ArrayList<>();
 
-    public Customer(DataRegisterCustomer data, String cpf){
+    public Customer(DataRegisterCustomer data){
         this.nome = data.nome();
         this.email = data.email();
         this.telefone = data.telefone();
-        this.cpf = cpf;
-        if(Period.between(data.dt_nascimento(), LocalDate.now()).getYears() >= 18){
-            this.dt_nascimento = data.dt_nascimento();
-        }else{
-            throw new IllegalArgumentException("Proibido para menores de 18 anos");
-        }
-
+        this.cpf = data.cpf();
+        this.dt_nascimento = data.dt_nascimento();
         this.address = new Address(data.address());
     }
 
