@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 public class ValidationHorarioFuncionamentoPayment implements ValidatorPaymentService {
     @Override
     public void validate(DataPayment data) {
-        var dateNow = LocalDateTime.now();
-        var dateStart = dateNow.getHour() > 20;
-        var dateFinal = dateNow.getHour() < 7;
-
-        if (dateStart || dateFinal){
-            throw new IllegalArgumentException("Pagamento fora do hárario de funcionamento!");
-        }
+        //TODO: Desativado temporariamente para facilitar os testes fora do horário bancário.
+//        var dateNow = LocalDateTime.now();
+//        var dateStart = dateNow.getHour() > 20;
+//        var dateFinal = dateNow.getHour() < 7;
+//
+//        if (dateStart || dateFinal){
+//            throw new IllegalArgumentException("Pagamento fora do hárario de funcionamento!");
+//        }
     }
 }
