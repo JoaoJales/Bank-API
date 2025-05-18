@@ -94,6 +94,47 @@
 
 
 ---
+## ▶️ Como rodar o projeto localmente
+
+### 1. Pré-requisitos
+
+- **Java 21+**
+- **Maven 3.8+**
+- **MySQL**
+- (Opcional) **IntelliJ IDEA** ou **VSCode**
+
+### 2. Configuração do banco de dados
+
+Configure o banco de dados no arquivo `src/main/resources/application.properties` com suas credenciais locais:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bank
+spring.datasource.username=root
+spring.datasource.password=1234
+```
+
+> 💡 Certifique-se de que o banco `bank` já existe antes de iniciar a aplicação.
+
+### 3. Rodando via terminal (Maven)
+
+```bash
+# Baixar dependências e compilar o projeto
+mvn clean install
+
+# Rodar a aplicação
+mvn spring-boot:run
+```
+
+### 4. Rodando via IntelliJ
+
+1. Abra o projeto no IntelliJ
+2. Aguarde o carregamento do Maven
+3. Navegue até a classe `BankApplication.java`
+4. Clique com o botão direito e selecione **Run 'BankApplication'**
+
+
+
+--- 
 
 ## 📄 Documentação
 
