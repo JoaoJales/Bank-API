@@ -1,6 +1,6 @@
 ## 🏦 Bank Api!
 
-**Bank API** é uma API RESTful simples desenvolvida com **Java + Spring Boot**, que simula operações bancárias básicas, como:
+**Bank API** é uma API RESTful desenvolvida com **Java + Spring Boot**, que simula operações bancárias básicas, como:
 
 - Cadastro de clientes e contas
 - Depósitos, saques, pagamentos e transferências
@@ -10,22 +10,29 @@
 --- 
 ## 📦 Endpoints principais
 
-| Método | Endpoint                                   | Descrição                                        |
-|--------|--------------------------------------------|--------------------------------------------------|
-| POST   | `/register`                                | Cadastra um novo cliente com conta               |
-| POST   | `/login`                                   | Realiza login e retorna token (JWT)              |
-| PUT    | `/customers`                               | Atualiza dados cadastrais do cliente             |
-| POST   | `/customers/{id}/account`                  | Cria uma nova conta bancaria                     |
-| POST   | `/transactions/deposit`                    | Realizar um depósito                             |
-| POST   | `/transactions/transfer`                   | Realizar uma transferência                       |
-| POST   | `/transactions/withdrawal`                 | Realizar um saque                                |
-| GET    | `/statement/{numeroConta}`                 | **Consulta o extrato da conta**                  |
-| GET    | `/customers`                               | Busca uma lista de todos os clientes cadastratos |
-| GET    | `/customers/{id}`                          | Busca detalhes de um cliente                     | 
+| Método | Endpoint                   | Descrição                                       |
+|--------|----------------------------|-------------------------------------------------|
+| POST   | `/register`                | Cadastra um novo cliente com conta              |
+| POST   | `/login`                   | Realiza login e retorna token (JWT)             |
+| PUT    | `/customers`               | Atualiza dados cadastrais do cliente            |
+| PUT    | `/user/password`           | Atualiza senha                                  |
+| POST   | `/accounts`                | Cria uma nova conta bancaria                    |
+| POST   | `/transactions/deposit`    | Realizar um depósito                            |
+| POST   | `/transactions/transfer`   | Realizar uma transferência                      |
+| POST   | `/transaction/pix`         | Realiza um PIX via key (CPF/Email)              |
+| POST   | `/transactions/withdrawal` | Realizar um saque                               |
+| GET    | `/statement/{numeroConta}` | **Consulta o extrato da conta**                 |
+| GET    | `/customers`               | Busca uma lista de todos os clientes cadastrados |
+| GET    | `/customers/{id}`          | Busca detalhes de um cliente                    |
 ---
+## 📘 Regras de Negócio
+
+👉 Veja todas as regras de funcionamento da aplicação no arquivo [`RULES.md`](./RULES.md)
+
+--- 
 
 ## 📄 Exemplos de JSON
-### Transferência
+### 🔄 Exemplo de Transferência
 ```json
 {
   "originAccount":"1234567-8",
@@ -33,18 +40,11 @@
   "value":"100.00",
   "description":"transferencia bancaria"
 }
+
+
 ```
 
-### Depósito
-```json
-{
-  "destinyAccount":"1234567-8",
-  "value":"1000.00",
-  "description":"deposito em dinheiro"
-}
-```
-
-### Cliente
+### 🧑 Exemplo de Cliente
 ```json
 {
   "id": 1,
@@ -74,22 +74,24 @@
 ---
 ## 🚀 Tecnologias utilizadas
 
+### Linguagem & Framework
 - **[Java 21](https://www.oracle.com/java)**
 - **[Spring Boot](https://spring.io/projects/spring-boot)**
+
+### Persistência
 - **[Spring Data JPA](https://spring.io/projects/spring-boot)**
-- **[Spring Security (login/autenticação)](https://spring.io/projects/spring-boot)**
-- **[Maven](https://maven.apache.org)**
-- **[MySQL](https://www.mysql.com)**
 - **[Hibernate](https://hibernate.org)**
 - **[Flyway](https://flywaydb.org)**
+- **[MySQL](https://www.mysql.com)**
+### Segurança
+- **[Spring Security](https://spring.io/projects/spring-boot)**
+- **JWT - Auth0**
+### Outros
+- **[Maven](https://maven.apache.org)**
 - **[Lombok](https://projectlombok.org)**
 - **[Postman]()**
 <!-- - **[Swagger (documentação)]()** -->
 
----
-## 🔐 Segurança
-- Endpoints exigem autenticação (cpf + senha).
-- Usuário autenticado só pode movimentar sua própria conta.
 
 ---
 
