@@ -4,6 +4,9 @@ import bank.api.domain.account.AccountService;
 import bank.api.domain.account.DataCreateAccount;
 import bank.api.domain.account.DataGetAccount;
 import bank.api.domain.customer.CustomerRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Tag(name = "4 - Contas", description = "Endpoints de contas")
 @RestController
 @RequestMapping("/accounts")
+@SecurityRequirement(name = "bearer-key")
 public class AccountController {
     @Autowired
     private AccountService accountService;
@@ -20,6 +25,7 @@ public class AccountController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Operation(summary = "Cria uma nova conta")
     @PostMapping
     @Transactional
     public ResponseEntity postAccounts(@RequestBody @Valid DataCreateAccount data, UriComponentsBuilder uriBuilder){
@@ -30,6 +36,7 @@ public class AccountController {
         return ResponseEntity.created(uri).body(new DataGetAccount(account));
     }
 
+    @Operation(summary = "Desativa uma conta")
     @DeleteMapping("/{numeroConta}")
     @Transactional
     public ResponseEntity cancelAccounts(@PathVariable String numeroConta){
@@ -38,3 +45,4 @@ public class AccountController {
         return ResponseEntity.noContent().build();
     }
 }
+

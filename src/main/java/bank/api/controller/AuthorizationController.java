@@ -4,6 +4,8 @@ import bank.api.domain.user.DataAuthorizationUser;
 import bank.api.domain.user.User;
 import bank.api.infra.security.DataTokenJWT;
 import bank.api.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "2 - Login", description = "Endpoint de login")
 @RestController
 public class AuthorizationController {
     @Autowired
@@ -21,14 +24,15 @@ public class AuthorizationController {
     @Autowired
     private TokenService tokenService;
 
+    @Operation(summary = "Realiza Login")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid DataAuthorizationUser data){
-         var authenticationToken = new UsernamePasswordAuthenticationToken(data.cpf(), data.password());
+        var authenticationToken = new UsernamePasswordAuthenticationToken(data.cpf(), data.password());
 
-         var authentication = manager.authenticate(authenticationToken);
+        var authentication = manager.authenticate(authenticationToken);
 
-         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
 
-         return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
+        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
     }
 }
