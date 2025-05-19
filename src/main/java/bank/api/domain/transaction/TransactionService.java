@@ -69,14 +69,13 @@ public class TransactionService {
     @Transactional
     public Transaction transfer(DataTransfer data){
         var cpfLogged = securityService.getCpfUserLogged();
+        validateExistsAccount(data.destinyAccount());
+        validateExistsAccount(data.originAccount());
 
         Account originAccount;
         if (data.originAccount() == null){
-            validateExistsAccount(data.destinyAccount());
             originAccount = findCurrentAccount(cpfLogged);
         }else {
-            validateExistsAccount(data.destinyAccount());
-            validateExistsAccount(data.originAccount());
             validateOriginAccountAndCpfLogged(cpfLogged, data.originAccount());
             originAccount = accountRepository.getReferenceByNumero(data.originAccount());
         }
@@ -99,12 +98,12 @@ public class TransactionService {
     @Transactional
     public Transaction withdrawal(@Valid DataWithdrawal data) {
         var cpfLogged = securityService.getCpfUserLogged();
+        validateExistsAccount(data.originAccount());
 
         Account originAccount;
         if (data.originAccount() == null){
             originAccount = findCurrentAccount(cpfLogged);
         }else {
-            validateExistsAccount(data.originAccount());
             validateOriginAccountAndCpfLogged(cpfLogged, data.originAccount());
             originAccount = accountRepository.getReferenceByNumero(data.originAccount());
         }
