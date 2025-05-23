@@ -90,6 +90,9 @@
 - **[Maven](https://maven.apache.org)**
 - **[Lombok](https://projectlombok.org)**
 - **[Postman]()**
+- **[Spring Doc]()**
+- **[Testes com JUnit + Mockito]()**
+
 <!-- - **[Swagger (documentação)]()** -->
 
 
