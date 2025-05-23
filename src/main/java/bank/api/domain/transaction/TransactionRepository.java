@@ -1,8 +1,6 @@
 package bank.api.domain.transaction;
 
 import bank.api.domain.account.Account;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

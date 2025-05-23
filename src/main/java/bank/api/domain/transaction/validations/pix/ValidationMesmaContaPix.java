@@ -1,6 +1,5 @@
 package bank.api.domain.transaction.validations.pix;
 
-import bank.api.domain.account.Account;
 import bank.api.domain.account.AccountRepository;
 import bank.api.domain.account.TypeAccount;
 import bank.api.domain.customer.CustomerRepository;

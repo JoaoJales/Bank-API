@@ -3,12 +3,8 @@ package bank.api.domain.account;
 import bank.api.domain.customer.CustomerRepository;
 import bank.api.infra.security.SecurityService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 public class AccountService {
@@ -22,6 +18,7 @@ public class AccountService {
     private SecurityService securityService;
 
 
+    @Transactional
     public Account createNewAccount(DataCreateAccount data){
         var cpfLogged = securityService.getCpfUserLogged();
         var customer = customerRepository.findByCpf(cpfLogged).get();
@@ -43,7 +40,6 @@ public class AccountService {
         accountRepository.save(account);
 
         return account;
-
     }
 
 

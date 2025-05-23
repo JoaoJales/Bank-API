@@ -1,9 +1,7 @@
 package bank.api.domain.transaction.validations.withdrawal;
 
 import bank.api.domain.account.AccountRepository;
-import bank.api.domain.transaction.dtosTransactions.DataDeposit;
 import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
-import bank.api.domain.transaction.validations.deposit.ValidatorDepositService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

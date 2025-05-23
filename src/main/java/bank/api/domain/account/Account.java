@@ -2,10 +2,7 @@ package bank.api.domain.account;
 
 import bank.api.domain.customer.Customer;
 import bank.api.domain.transaction.Transaction;
-import bank.api.domain.transaction.TypeTransaction;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.math.BigDecimal;

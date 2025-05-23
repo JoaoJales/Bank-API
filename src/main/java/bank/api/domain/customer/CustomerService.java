@@ -24,7 +24,7 @@ public class CustomerService {
 
         var customer = repository.findByCpf(cpfLogged).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
         if (!customer.getId().equals(data.id())){
-            throw new IllegalArgumentException("Você não tem permissão de atualizar esta conta");
+            throw new IllegalArgumentException("Você não tem permissão de atualizar dados desse usuário");
         }
         customer.updateInfo(data);
         repository.save(customer);

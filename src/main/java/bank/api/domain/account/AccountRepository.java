@@ -1,9 +1,6 @@
 package bank.api.domain.account;
 
 
-import bank.api.domain.customer.Customer;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

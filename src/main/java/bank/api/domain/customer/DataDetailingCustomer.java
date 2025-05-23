@@ -1,6 +1,5 @@
 package bank.api.domain.customer;
 
-import bank.api.domain.account.Account;
 import bank.api.domain.account.DataGetAccount;
 import bank.api.domain.address.Address;
 

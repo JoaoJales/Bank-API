@@ -13,6 +13,7 @@ import bank.api.domain.transaction.validations.withdrawal.ValidatorWithdrawalSer
 import bank.api.infra.security.SecurityService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Setter
 public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
@@ -182,9 +184,8 @@ public class TransactionService {
     private void validateOriginAccountAndCpfLogged(String cpfLogged, String originAccount){
         if (originAccount != null){
             var origin = accountRepository.getReferenceByNumero(originAccount);
-            var customerLogged = customerRepository.findByCpf(cpfLogged).get();
 
-            if (!origin.getCustomer().equals(customerLogged)){
+            if (!origin.getCustomer().getCpf().equals(cpfLogged)){
                 throw new IllegalArgumentException("Você não tem permissão para movimentar a conta (" + origin.getNumero() + ")");
             }
         }

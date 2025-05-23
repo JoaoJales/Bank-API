@@ -61,7 +61,7 @@ public class TransactionController {
     @Operation(summary = "Realiza um pagamento")
     @PostMapping("/payment")
     @Transactional
-    public ResponseEntity withdrawal(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity payment(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.payment(data);
 
         var uri = uriBuilder.path("/transactions/payment/{id}").buildAndExpand(transaction.getId()).toUri();

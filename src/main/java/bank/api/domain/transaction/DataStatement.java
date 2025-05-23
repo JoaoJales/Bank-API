@@ -2,7 +2,6 @@ package bank.api.domain.transaction;
 
 import bank.api.domain.account.Account;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record DataStatement(String value, LocalDateTime date, TypeTransaction typeTransaction, String description) {

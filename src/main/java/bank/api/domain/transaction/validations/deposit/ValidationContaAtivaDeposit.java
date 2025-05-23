@@ -2,8 +2,6 @@ package bank.api.domain.transaction.validations.deposit;
 
 import bank.api.domain.account.AccountRepository;
 import bank.api.domain.transaction.dtosTransactions.DataDeposit;
-import bank.api.domain.transaction.dtosTransactions.DataTransfer;
-import bank.api.domain.transaction.validations.transfer.ValidatorTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

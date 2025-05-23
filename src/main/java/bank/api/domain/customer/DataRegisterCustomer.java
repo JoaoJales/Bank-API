@@ -1,6 +1,5 @@
 package bank.api.domain.customer;
 
-import bank.api.domain.account.DataCreateAccount;
 import bank.api.domain.address.DataAddress;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.Valid;

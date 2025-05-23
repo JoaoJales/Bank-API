@@ -6,7 +6,6 @@ import bank.api.domain.account.TypeAccount;
 import bank.api.domain.customer.Customer;
 import bank.api.domain.customer.CustomerRepository;
 import bank.api.domain.customer.DataDetailingCustomer;
-import bank.api.domain.customer.DataRegisterCustomer;
 import bank.api.domain.user.User;
 import bank.api.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
