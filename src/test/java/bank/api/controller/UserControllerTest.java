@@ -1,7 +1,7 @@
 package bank.api.controller;
 
-import bank.api.domain.user.DataPutPassword;
-import bank.api.domain.user.DataRegisterUser;
+import bank.api.dto.user.DataPutPassword;
+import bank.api.dto.user.DataRegisterUser;
 import bank.api.domain.user.User;
 import bank.api.domain.user.UserService;
 import org.junit.jupiter.api.DisplayName;

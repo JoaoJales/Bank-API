@@ -3,7 +3,7 @@ package bank.api.controller;
 import bank.api.domain.transaction.DataDetailingTransaction;
 import bank.api.domain.transaction.DataStatement;
 import bank.api.domain.transaction.TransactionService;
-import bank.api.domain.transaction.dtosTransactions.*;
+import bank.api.dto.transactions.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;

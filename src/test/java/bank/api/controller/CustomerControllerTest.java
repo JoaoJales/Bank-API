@@ -2,8 +2,8 @@ package bank.api.controller;
 
 import bank.api.domain.customer.Customer;
 import bank.api.domain.customer.CustomerService;
-import bank.api.domain.customer.DataDetailingCustomer;
-import bank.api.domain.customer.DataPutCustomer;
+import bank.api.dto.customer.DataDetailingCustomer;
+import bank.api.dto.customer.DataPutCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
-package bank.api.domain.customer;
+package bank.api.dto.customer;
 
-import bank.api.domain.account.DataGetAccount;
+import bank.api.domain.customer.Customer;
+import bank.api.dto.account.DataGetAccount;
 import bank.api.domain.address.Address;
 
 import java.time.LocalDate;

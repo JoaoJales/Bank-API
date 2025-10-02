@@ -1,6 +1,6 @@
-package bank.api.domain.customer;
+package bank.api.dto.customer;
 
-import bank.api.domain.address.DataAddress;
+import bank.api.dto.address.DataAddress;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;

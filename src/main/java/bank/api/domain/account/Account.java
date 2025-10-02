@@ -2,6 +2,7 @@ package bank.api.domain.account;
 
 import bank.api.domain.customer.Customer;
 import bank.api.domain.transaction.Transaction;
+import bank.api.dto.account.DataCreateAccount;
 import jakarta.persistence.*;
 import lombok.*;
 

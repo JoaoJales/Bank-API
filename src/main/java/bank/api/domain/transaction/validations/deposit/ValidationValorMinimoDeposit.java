@@ -1,6 +1,6 @@
 package bank.api.domain.transaction.validations.deposit;
 
-import bank.api.domain.transaction.dtosTransactions.DataDeposit;
+import bank.api.dto.transactions.DataDeposit;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

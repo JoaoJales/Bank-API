@@ -2,6 +2,8 @@ package bank.api.domain.customer;
 
 import bank.api.domain.account.Account;
 import bank.api.domain.address.Address;
+import bank.api.dto.customer.DataPutCustomer;
+import bank.api.dto.customer.DataRegisterCustomer;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

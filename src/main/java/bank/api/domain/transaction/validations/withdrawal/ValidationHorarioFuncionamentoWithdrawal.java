@@ -1,9 +1,7 @@
 package bank.api.domain.transaction.validations.withdrawal;
 
-import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
+import bank.api.dto.transactions.DataWithdrawal;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class ValidationHorarioFuncionamentoWithdrawal implements ValidatorWithdrawalService {

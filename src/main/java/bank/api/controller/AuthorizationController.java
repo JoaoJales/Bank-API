@@ -1,6 +1,6 @@
 package bank.api.controller;
 
-import bank.api.domain.user.DataAuthorizationUser;
+import bank.api.dto.user.DataAuthorizationUser;
 import bank.api.domain.user.User;
 import bank.api.infra.security.DataTokenJWT;
 import bank.api.infra.security.TokenService;

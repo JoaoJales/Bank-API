@@ -1,5 +1,7 @@
 package bank.api.domain.customer;
 
+import bank.api.dto.customer.DataGetCustomers;
+import bank.api.dto.customer.DataPutCustomer;
 import bank.api.infra.security.SecurityService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

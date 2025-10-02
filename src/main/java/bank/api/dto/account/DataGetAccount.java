@@ -1,5 +1,7 @@
-package bank.api.domain.account;
+package bank.api.dto.account;
 
+import bank.api.domain.account.Account;
+import bank.api.domain.account.TypeAccount;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;

@@ -2,7 +2,7 @@ package bank.api.domain.transaction.validations.transfer;
 
 import bank.api.domain.account.AccountRepository;
 import bank.api.domain.account.TypeAccount;
-import bank.api.domain.transaction.dtosTransactions.DataTransfer;
+import bank.api.dto.transactions.DataTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

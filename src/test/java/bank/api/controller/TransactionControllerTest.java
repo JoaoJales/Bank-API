@@ -4,7 +4,7 @@ import bank.api.domain.transaction.DataDetailingTransaction;
 import bank.api.domain.transaction.Transaction;
 import bank.api.domain.transaction.TransactionService;
 import bank.api.domain.transaction.TypeTransaction;
-import bank.api.domain.transaction.dtosTransactions.*;
+import bank.api.dto.transactions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

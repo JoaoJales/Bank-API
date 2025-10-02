@@ -1,8 +1,8 @@
 package bank.api.controller;
 
 import bank.api.domain.account.AccountService;
-import bank.api.domain.account.DataCreateAccount;
-import bank.api.domain.account.DataGetAccount;
+import bank.api.dto.account.DataCreateAccount;
+import bank.api.dto.account.DataGetAccount;
 import bank.api.domain.customer.CustomerRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -1,6 +1,7 @@
 package bank.api.domain.account;
 
 import bank.api.domain.customer.CustomerRepository;
+import bank.api.dto.account.DataCreateAccount;
 import bank.api.infra.security.SecurityService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

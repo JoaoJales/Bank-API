@@ -1,5 +1,6 @@
-package bank.api.domain.account;
+package bank.api.dto.account;
 
+import bank.api.domain.account.TypeAccount;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

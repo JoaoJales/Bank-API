@@ -2,6 +2,7 @@ package bank.api.domain.account;
 
 import bank.api.domain.customer.Customer;
 import bank.api.domain.customer.CustomerRepository;
+import bank.api.dto.account.DataCreateAccount;
 import bank.api.infra.security.SecurityService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,10 +1,7 @@
 package bank.api.domain.transaction.validations.deposit;
 
-import bank.api.domain.transaction.dtosTransactions.DataDeposit;
+import bank.api.dto.transactions.DataDeposit;
 import org.springframework.stereotype.Component;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 
 @Component
 public class ValidationHorarioFuncionamentoDeposit implements ValidatorDepositService {

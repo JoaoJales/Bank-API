@@ -1,9 +1,7 @@
 package bank.api.domain.transaction.validations.payment;
 
-import bank.api.domain.transaction.dtosTransactions.DataPayment;
+import bank.api.dto.transactions.DataPayment;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class ValidationHorarioFuncionamentoPayment implements ValidatorPaymentService {

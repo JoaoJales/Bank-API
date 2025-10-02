@@ -1,10 +1,7 @@
 package bank.api.domain.transaction.validations.transfer;
 
-import bank.api.domain.transaction.dtosTransactions.DataTransfer;
+import bank.api.dto.transactions.DataTransfer;
 import org.springframework.stereotype.Component;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 
 @Component
 public class ValidationHorarioFuncionamentoTransfer implements ValidatorTransferService{

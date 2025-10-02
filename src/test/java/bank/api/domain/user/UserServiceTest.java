@@ -1,9 +1,6 @@
 package bank.api.domain.user;
 
-import bank.api.domain.account.DataCreateAccount;
-import bank.api.domain.account.TypeAccount;
-import bank.api.domain.customer.Customer;
-import bank.api.domain.register.DataRegister;
+import bank.api.dto.user.DataPutPassword;
 import bank.api.infra.security.SecurityService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

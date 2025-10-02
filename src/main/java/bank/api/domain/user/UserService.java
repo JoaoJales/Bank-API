@@ -1,5 +1,6 @@
 package bank.api.domain.user;
 
+import bank.api.dto.user.DataPutPassword;
 import bank.api.infra.security.SecurityService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

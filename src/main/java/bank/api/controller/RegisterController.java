@@ -1,8 +1,8 @@
 package bank.api.controller;
 
 
-import bank.api.domain.customer.DataDetailingCustomer;
-import bank.api.domain.register.DataRegister;
+import bank.api.dto.customer.DataDetailingCustomer;
+import bank.api.dto.register.DataRegister;
 import bank.api.domain.register.RegisterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

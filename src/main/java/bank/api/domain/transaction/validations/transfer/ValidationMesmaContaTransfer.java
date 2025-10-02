@@ -5,7 +5,7 @@ import bank.api.domain.account.Account;
 import bank.api.domain.account.AccountRepository;
 import bank.api.domain.account.TypeAccount;
 import bank.api.domain.customer.CustomerRepository;
-import bank.api.domain.transaction.dtosTransactions.DataTransfer;
+import bank.api.dto.transactions.DataTransfer;
 import bank.api.infra.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

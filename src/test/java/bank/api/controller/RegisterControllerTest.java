@@ -1,15 +1,15 @@
 package bank.api.controller;
 
-import bank.api.domain.account.DataCreateAccount;
+import bank.api.dto.account.DataCreateAccount;
 import bank.api.domain.account.TypeAccount;
 import bank.api.domain.address.Address;
-import bank.api.domain.address.DataAddress;
+import bank.api.dto.address.DataAddress;
 import bank.api.domain.customer.Customer;
-import bank.api.domain.customer.DataDetailingCustomer;
-import bank.api.domain.customer.DataRegisterCustomer;
-import bank.api.domain.register.DataRegister;
+import bank.api.dto.customer.DataDetailingCustomer;
+import bank.api.dto.customer.DataRegisterCustomer;
+import bank.api.dto.register.DataRegister;
 import bank.api.domain.register.RegisterService;
-import bank.api.domain.user.DataRegisterUser;
+import bank.api.dto.user.DataRegisterUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

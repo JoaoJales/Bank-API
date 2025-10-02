@@ -4,7 +4,7 @@ import bank.api.domain.account.AccountRepository;
 import bank.api.domain.transaction.Transaction;
 import bank.api.domain.transaction.TransactionRepository;
 import bank.api.domain.transaction.TypeTransaction;
-import bank.api.domain.transaction.dtosTransactions.DataWithdrawal;
+import bank.api.dto.transactions.DataWithdrawal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
