@@ -1,5 +1,7 @@
 # 📄 Regras de Negócio - Bank API 🏦
 
+> ⚠️ Importante: algumas regras **foram temporariamente relaxadas/desativadas** para facilitar os testes e simulações.
+
 ## 🔐 Autenticação
 - Endpoints de cadastro e login **não exigem autenticação**.
 - Todos os demais endpoints exigem autenticação com **token JWT**.
