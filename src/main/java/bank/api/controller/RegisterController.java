@@ -1,6 +1,7 @@
 package bank.api.controller;
 
 
+import bank.api.domain.customer.DataDetailingCustomer;
 import bank.api.domain.register.DataRegister;
 import bank.api.domain.register.RegisterService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,7 +26,7 @@ public class RegisterController {
     @Operation(summary = "Realiza cadastro")
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid DataRegister data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingCustomer> register(@RequestBody @Valid DataRegister data, UriComponentsBuilder uriBuilder){
         var dataDetailingCustomer = registerService.register(data);
 
         var uri = uriBuilder.path("customer/{id}").buildAndExpand(dataDetailingCustomer.id()).toUri();

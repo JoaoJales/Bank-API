@@ -24,9 +24,9 @@ public class AuthorizationController {
     @Autowired
     private TokenService tokenService;
 
-    @Operation(summary = "Realiza Login")
+    @Operation(summary = "Realizar Login")
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid DataAuthorizationUser data){
+    public ResponseEntity<DataTokenJWT> login(@RequestBody @Valid DataAuthorizationUser data){
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.cpf(), data.password());
 
         var authentication = manager.authenticate(authenticationToken);

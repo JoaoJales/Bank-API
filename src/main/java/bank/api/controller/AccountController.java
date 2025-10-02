@@ -28,7 +28,7 @@ public class AccountController {
     @Operation(summary = "Cria uma nova conta")
     @PostMapping
     @Transactional
-    public ResponseEntity postAccounts(@RequestBody @Valid DataCreateAccount data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataGetAccount> postAccounts(@RequestBody @Valid DataCreateAccount data, UriComponentsBuilder uriBuilder){
         var account = accountService.createNewAccount(data);
 
         var uri = uriBuilder.path("accounts/{accountId}").buildAndExpand(account.getId()).toUri();

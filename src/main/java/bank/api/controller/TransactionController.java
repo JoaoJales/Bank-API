@@ -28,7 +28,7 @@ public class TransactionController {
     @Operation(summary = "Realiza um depósito")
     @PostMapping("/deposit")
     @Transactional
-    public ResponseEntity deposit(@RequestBody @Valid DataDeposit data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingTransaction> deposit(@RequestBody @Valid DataDeposit data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.deposit(data);
 
         var uri = uriBuilder.path("/transactions/deposit/{id}").buildAndExpand(transaction.getId()).toUri();
@@ -39,7 +39,7 @@ public class TransactionController {
     @Operation(summary = "Realiza uma transferência")
     @PostMapping("/transfer")
     @Transactional
-    public ResponseEntity transfer(@RequestBody @Valid DataTransfer data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingTransaction> transfer(@RequestBody @Valid DataTransfer data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.transfer(data);
 
         var uri = uriBuilder.path("/transactions/transfer/{id}").buildAndExpand(transaction.getId()).toUri();
@@ -50,7 +50,7 @@ public class TransactionController {
     @Operation(summary = "Realiza um saque")
     @PostMapping("/withdrawal")
     @Transactional
-    public ResponseEntity withdrawal(@RequestBody @Valid DataWithdrawal data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingTransaction> withdrawal(@RequestBody @Valid DataWithdrawal data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.withdrawal(data);
 
         var uri = uriBuilder.path("/transactions/withdrawal/{id}").buildAndExpand(transaction.getId()).toUri();
@@ -61,7 +61,7 @@ public class TransactionController {
     @Operation(summary = "Realiza um pagamento")
     @PostMapping("/payment")
     @Transactional
-    public ResponseEntity payment(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingTransaction> payment(@RequestBody @Valid DataPayment data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.payment(data);
 
         var uri = uriBuilder.path("/transactions/payment/{id}").buildAndExpand(transaction.getId()).toUri();
@@ -72,7 +72,7 @@ public class TransactionController {
     @Operation(summary = "Realiza um Pix")
     @PostMapping("/pix")
     @Transactional
-    public ResponseEntity pix(@RequestBody @Valid DataPix data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DataDetailingTransaction> pix(@RequestBody @Valid DataPix data, UriComponentsBuilder uriBuilder){
         var transaction = transactionService.pix(data);
 
         var uri = uriBuilder.path("/transactions/pix/{id}").buildAndExpand(transaction.getId()).toUri();
@@ -82,7 +82,7 @@ public class TransactionController {
 
     @Operation(summary = "Busca extrato da conta")
     @GetMapping("statement/{numeroConta}")
-    public ResponseEntity<Page<DataStatement>> getStatement(@PathVariable String numeroConta, @PageableDefault(size = 10)Pageable pageable){
+    public ResponseEntity<Page<DataStatement>> getStatement(@PageableDefault(size = 10)Pageable pageable, @PathVariable String numeroConta){
         var page = transactionService.getStatement(numeroConta, pageable);
 
         return ResponseEntity.ok(page);

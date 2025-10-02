@@ -25,14 +25,14 @@ public class CustomerController {
     @Operation(summary = "Atualiza dados do cliente")
     @PutMapping
     @Transactional
-    public ResponseEntity putCustomers(@RequestBody @Valid DataPutCustomer data){
+    public ResponseEntity<DataDetailingCustomer> putCustomers(@RequestBody @Valid DataPutCustomer data){
         var customer  = customerService.putCustomers(data);
 
         return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
     }
 
 
-    @Operation(summary = "Busca clientes")
+    @Operation(summary = "Busca todos os clientes")
     @GetMapping
     public ResponseEntity<Page<DataGetCustomers>> getCustomers(@PageableDefault(size = 10)Pageable pageable){
         var page = customerService.getCustomers(pageable);
@@ -40,9 +40,9 @@ public class CustomerController {
         return ResponseEntity.ok(page);
     }
 
-    @Operation(summary = "Busca um cliente")
+    @Operation(summary = "Busca detalhes de cliente")
     @GetMapping("/{id}")
-    public ResponseEntity getCustomer(@PathVariable Long id){
+    public ResponseEntity<DataDetailingCustomer> getCustomer(@PathVariable Long id){
         Customer customer = customerService.getCustomer(id);
 
         return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
