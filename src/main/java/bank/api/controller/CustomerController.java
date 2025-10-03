@@ -43,7 +43,15 @@ public class CustomerController {
         return ResponseEntity.ok(page);
     }
 
-    @Operation(summary = "Busca detalhes de cliente")
+    @Operation(summary = "Busca detalhes do cliente logado")
+    @GetMapping("/me")
+    public ResponseEntity<DataDetailingCustomer> getCustomerLogged(){
+        Customer customer = customerService.getCustomerLogged();
+
+        return ResponseEntity.ok().body(new DataDetailingCustomer(customer));
+    }
+
+    @Operation(summary = "Busca detalhes de um cliente pelo ID")
     @GetMapping("/{id}")
     public ResponseEntity<DataDetailingCustomer> getCustomer(@PathVariable Long id){
         Customer customer = customerService.getCustomer(id);

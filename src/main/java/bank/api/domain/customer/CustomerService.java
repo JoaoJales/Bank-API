@@ -41,4 +41,11 @@ public class CustomerService {
     public Customer getCustomer(Long id) {
         return repository.getReferenceById(id);
     }
+
+    public Customer getCustomerLogged() {
+        var cpfLogged = securityService.getCpfUserLogged();
+        var customer = repository.findByCpf(cpfLogged).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+
+        return repository.getReferenceById(customer.getId());
+    }
 }
