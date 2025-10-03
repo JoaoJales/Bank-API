@@ -54,7 +54,7 @@ O projeto foi estruturado para simular as principais operações de um banco rea
 ##### Customer 1 (Cliente 1):
 ```json
 {
-  "cpf":"000.000.000-01",
+  "cpf":"123.456.789-10",
   "password":"customer1"
 }
 ```
@@ -62,7 +62,7 @@ O projeto foi estruturado para simular as principais operações de um banco rea
 ##### Customer 2 (Cliente 2):
 ```json
 {
-  "cpf":"000.000.000-02",
+  "cpf":"123.456.789-11",
   "password":"customer2"
 }
 ```
